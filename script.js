@@ -57,6 +57,65 @@ noBtn.addEventListener("mouseover", () => {
 //     }
 // });
 
+// Confetti function
+function createConfetti() {
+    // Create container if it doesn't exist
+    let container = document.getElementById("confetti-container");
+    if (!container) {
+        container = document.createElement("div");
+        container.id = "confetti-container";
+        document.body.appendChild(container);
+    }
+
+    // Romantic pixel-art color palette
+    const colors = [
+        "#FFB6C1", // Light pink
+        "#FF69B4", // Hot pink
+        "#FF1493", // Deep pink
+        "#FFC0CB", // Pink
+        "#DB7093", // Pale violet red
+        "#FF6B6B", // Coral red
+        "#FFFFFF", // White
+        "#FFE4E1", // Misty rose
+        "#F08080", // Light coral
+        "#E75480"  // Dark pink
+    ];
+
+    // Create 150 confetti pieces
+    for (let i = 0; i < 150; i++) {
+        setTimeout(() => {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti";
+
+            // Random position across the screen
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.top = -20 + "px";
+
+            // Random color from palette
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+            // Random size (pixel-art style: small squares)
+            const size = Math.random() * 8 + 6;
+            confetti.style.width = size + "px";
+            confetti.style.height = size + "px";
+
+            // Random animation duration
+            const duration = Math.random() * 3 + 2;
+            confetti.style.animationDuration = duration + "s";
+
+            // Random delay for staggered effect
+            confetti.style.animationDelay = Math.random() * 0.5 + "s";
+
+            container.appendChild(confetti);
+
+            // Remove confetti after animation
+            setTimeout(() => {
+                confetti.remove();
+            }, (duration + 1) * 1000);
+        }, i * 20); // Stagger creation
+    }
+}
+
 // YES is clicked
 
 yesBtn.addEventListener("click", () => {
@@ -69,4 +128,7 @@ yesBtn.addEventListener("click", () => {
     buttons.style.display = "none";
 
     finalText.style.display = "block";
+
+    // Trigger confetti
+    createConfetti();
 });
